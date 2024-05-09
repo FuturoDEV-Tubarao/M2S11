@@ -3,6 +3,7 @@ package br.com.futurodev.gestorservice.service;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.futurodev.gestorservice.exceptions.ConflitoException;
@@ -17,11 +18,14 @@ public class FuncionarioService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public FuncionarioEntity inserir(FuncionarioEntity funcionarioEntity) {
         validarExisteFuncionarioComEmail(funcionarioEntity.getEmail());
         funcionarioEntity.setPapel(PapelEnum.FUNCIONARIO);
         funcionarioEntity.setDataContratacao(LocalDate.now());   
-        funcionarioEntity.setSenha("123456");
+        funcionarioEntity.setSenha(passwordEncoder.encode("123456"));
         return this.funcionarioRepository.save(funcionarioEntity);     
     }
 

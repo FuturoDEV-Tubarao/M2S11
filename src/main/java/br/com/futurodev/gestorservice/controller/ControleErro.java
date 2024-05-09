@@ -11,7 +11,7 @@ import br.com.futurodev.gestorservice.exceptions.NaoEncontradoException;
 
 @ControllerAdvice
 public class ControleErro {
-
+    
     @ExceptionHandler(value = {ConflitoException.class})
     ResponseEntity<Object> conflitoException(ConflitoException exp) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exp.getMessage());
